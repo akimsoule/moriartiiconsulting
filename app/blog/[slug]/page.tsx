@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import { getBlogPostBySlug, blogPosts } from "@/lib/data";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
+import { Metadata } from "next";
+import CustomLink from "@/components/CustomLink";
 
 interface BlogPostPageProps {
   params: {
@@ -13,6 +14,35 @@ export function generateStaticParams() {
   return blogPosts.map((post) => ({
     slug: post.slug,
   }));
+}
+
+// Génération dynamique des métadonnées pour chaque article
+export async function generateMetadata({
+  params,
+}: BlogPostPageProps): Promise<Metadata> {
+  const post = getBlogPostBySlug(params.slug);
+
+  if (!post) {
+    return {
+      title: "Article introuvable | Moriartii Consulting",
+      description: "Cet article n'existe pas ou a été supprimé.",
+    };
+  }
+
+  return {
+    title: `${post.title} | Moriartii Consulting`,
+    description:
+      post.excerpt ||
+      "Découvrez nos analyses et conseils sur la fiscalité internationale, le droit des affaires et la stratégie d'entreprise.",
+    openGraph: {
+      title: `${post.title} | Moriartii Consulting`,
+      description:
+        post.excerpt ||
+        "Découvrez nos analyses et conseils sur la fiscalité internationale, le droit des affaires et la stratégie d'entreprise.",
+      siteName: "Moriartii Consulting",
+      type: "article",
+    },
+  };
 }
 
 export default function BlogPostPage({ params }: BlogPostPageProps) {
@@ -36,13 +66,13 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       <section className="bg-moriartii-light py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
-            <Link
+            <CustomLink
               href="/blog"
               className="inline-flex items-center text-moriartii-secondary hover:text-moriartii-primary transition-colors duration-300 mb-6"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
               Retour aux articles
-            </Link>
+            </CustomLink>
 
             <h1 className="text-3xl md:text-4xl font-serif font-bold text-moriartii-primary mb-4">
               {post.title}
@@ -98,17 +128,28 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
               Vous avez aimé cet article ?
             </h2>
             <p className="text-moriartii-secondary mb-6">
-              Découvrez nos autres articles sur la fiscalité, le droit des affaires et les stratégies d'entreprise.
+              Découvrez nos autres articles sur la fiscalité, le droit des
+              affaires et les stratégies d'entreprise.
             </p>
-            <Link
+            <CustomLink
               href="/blog"
               className="btn btn-primary px-6 py-3 rounded-md inline-flex items-center"
             >
               Explorer nos articles
-              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              <svg
+                className="w-4 h-4 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
               </svg>
-            </Link>
+            </CustomLink>
           </div>
         </div>
       </section>

@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import { Linkedin } from 'lucide-react';
 import { TeamMember as TeamMemberType } from '@/lib/data';
+import CustomLink from '../CustomLink';
 
 interface TeamMemberProps {
   member: TeamMemberType;
@@ -17,7 +17,7 @@ export default function TeamMember({ member }: TeamMemberProps) {
         />
         {member.linkedin && (
           <div className="absolute top-4 right-4">
-            <Link 
+            <CustomLink 
               href={member.linkedin}
               className="bg-white p-2 rounded-full shadow-md text-moriartii-primary hover:text-moriartii-secondary transition-colors duration-300"
               target="_blank"
@@ -25,7 +25,7 @@ export default function TeamMember({ member }: TeamMemberProps) {
               aria-label={`LinkedIn de ${member.name}`}
             >
               <Linkedin className="h-5 w-5" />
-            </Link>
+            </CustomLink>
           </div>
         )}
       </div>

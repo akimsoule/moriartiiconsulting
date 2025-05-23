@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import CustomLink from '../CustomLink';
 
 export default function CallToAction() {
   return (
@@ -11,18 +11,18 @@ export default function CallToAction() {
           Contactez-nous dès aujourd'hui pour discuter de vos besoins spécifiques et découvrir comment Moriartii Consulting peut vous aider à atteindre vos objectifs.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link 
+          <CustomLink 
             href="/contact"
             className="btn bg-white text-moriartii-primary hover:bg-moriartii-accent hover:text-white transition-colors duration-300 px-8 py-3 rounded-md font-medium"
           >
             Nous contacter
-          </Link>
-          <Link 
+          </CustomLink>
+          <CustomLink 
             href="/services"
             className="btn border-2 border-white text-white hover:bg-white hover:text-moriartii-primary transition-colors duration-300 px-8 py-3 rounded-md font-medium"
           >
             Explorer nos services
-          </Link>
+          </CustomLink>
         </div>
       </div>
     </section>

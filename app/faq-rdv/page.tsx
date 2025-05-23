@@ -2,6 +2,20 @@ import ContactForm from "@/components/ui/contact-form";
 import FaqAccordion from "@/components/faq/FaqAccordion";
 import { faqs } from "@/lib/data";
 import { Calendar, Mail, Phone } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "FAQ & RDV | Moriartii Consulting",
+  description:
+    "Trouvez les réponses à vos questions juridiques et prenez rendez-vous avec les experts de Moriartii Consulting. Assistance juridique complète et spécialisée.",
+  openGraph: {
+    title: "FAQ & RDV | Moriartii Consulting",
+    description:
+      "Trouvez les réponses à vos questions juridiques et prenez rendez-vous avec les experts de Moriartii Consulting.",
+    siteName: "Moriartii Consulting",
+    type: "website",
+  },
+};
 
 export default function FaqPage() {
   return (
@@ -13,7 +27,8 @@ export default function FaqPage() {
               FAQ & RDV
             </h1>
             <p className="text-moriartii-secondary text-lg">
-              Une Assistance Juridique Complète et Spécialisée - Trouvez les réponses à vos questions et prenez rendez-vous avec nos experts.
+              Une Assistance Juridique Complète et Spécialisée - Trouvez les
+              réponses à vos questions et prenez rendez-vous avec nos experts.
             </p>
           </div>
         </div>
@@ -28,42 +43,50 @@ export default function FaqPage() {
               </h2>
               <FaqAccordion faqs={faqs} />
             </div>
-            
+
             <div>
               <h2 className="text-2xl font-serif font-bold text-moriartii-primary mb-6">
                 Prise de rendez-vous
               </h2>
-              
+
               <div className="bg-moriartii-light p-6 rounded-lg shadow-md mb-8">
                 <h3 className="text-xl font-serif font-semibold text-moriartii-primary mb-4">
                   Nos coordonnées
                 </h3>
-                
+
                 <div className="space-y-4">
                   <div className="flex items-center">
                     <Phone className="h-5 w-5 text-moriartii-primary mr-3" />
-                    <span className="text-moriartii-secondary">+33 (0)1 XX XX XX XX</span>
+                    <span className="text-moriartii-secondary">
+                      +33 (0)1 XX XX XX XX
+                    </span>
                   </div>
-                  
+
                   <div className="flex items-center">
                     <Mail className="h-5 w-5 text-moriartii-primary mr-3" />
-                    <span className="text-moriartii-secondary">contact@moriartiiconsulting.com</span>
+                    <span className="text-moriartii-secondary">
+                      contact@moriartiiconsulting.com
+                    </span>
                   </div>
-                  
+
                   <div className="flex items-center">
                     <Calendar className="h-5 w-5 text-moriartii-primary mr-3" />
-                    <span className="text-moriartii-secondary">Lundi - Vendredi : 9h00 - 18h00</span>
+                    <span className="text-moriartii-secondary">
+                      Lundi - Vendredi : 9h00 - 18h00
+                    </span>
                   </div>
                 </div>
               </div>
-              
+
               <h3 className="text-xl font-serif font-semibold text-moriartii-primary mb-4">
                 Nous Contacter
               </h3>
               <p className="text-moriartii-secondary mb-6">
-                Contactez-nous en utilisant le formulaire ci-dessous. Nous sommes impatients de vous entendre et de vous aider avec vos besoins.
+                Contactez-nous en utilisant le formulaire ci-dessous. Nous
+                sommes impatients de vous entendre et de vous aider avec vos
+                besoins.
               </p>
-              
+
               <ContactForm />
             </div>
           </div>

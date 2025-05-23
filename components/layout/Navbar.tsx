@@ -1,16 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { Menu, X } from "lucide-react";
+import { Monoton } from "next/font/google"; // Remplace Playfair_Display par Agu_Display
+import CustomLink from "../CustomLink";
+
+const mono = Monoton({
+  subsets: ["latin"],
+  weight: ["400"], // Monoton only supports 400
+});
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
 
   const navLinks = [
     { name: "Nos services d'assistances", href: "/services" },
@@ -18,56 +19,100 @@ const Navbar = () => {
     { name: "Équipe", href: "/team" },
     { name: "FAQ & RDV", href: "/faq-rdv" },
     { name: "Articles", href: "/blog" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center">
-            <span className="font-serif font-bold text-xl md:text-2xl text-moriartii-primary">
+          <CustomLink href="/" className="flex items-center">
+            <span
+              className={`${mono.className} font-bold text-2xl md:text-3xl text-moriartii-primary`}
+            >
               Moriartii Consulting
             </span>
-          </Link>
+          </CustomLink>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
+          {/* <nav className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
-              <Link
+              <CustomLink
                 key={link.name}
                 href={link.href}
-                className="text-moriartii-secondary hover:text-moriartii-primary font-medium transition-colors duration-200"
+                className="relative text-moriartii-secondary hover:text-moriartii-primary font-medium transition-colors duration-200
+    after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 hover:after:w-full after:h-[2px] after:bg-moriartii-primary after:transition-all after:duration-300
+    active:text-moriartii-primary visited:text-moriartii-accent"
               >
                 {link.name}
-              </Link>
+              </CustomLink>
             ))}
-          </nav>
+          </nav> */}
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Drawer Button */}
           <button
-            className="md:hidden text-moriartii-primary"
-            onClick={toggleMenu}
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            className="text-moriartii-primary"
+            onClick={() => setIsMenuOpen(true)}
+            aria-label="Ouvrir le menu"
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <Menu size={50} />
           </button>
         </div>
+      </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 space-y-4 animate-fadeIn">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="block py-2 text-moriartii-secondary hover:text-moriartii-primary font-medium transition-colors duration-200"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {link.name}
-              </Link>
-            ))}
-          </nav>
-        )}
+      {/* Drawer Mobile */}
+      <div
+        className={`drawer drawer-end fixed inset-0 z-[100] ${
+          isMenuOpen ? "pointer-events-auto" : "pointer-events-none"
+        }`}
+      >
+        <input
+          type="checkbox"
+          className="drawer-toggle"
+          checked={isMenuOpen}
+          readOnly
+        />
+        <div
+          className={`drawer-side transition-all duration-300 ${
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          <label
+            className="drawer-overlay bg-black/50"
+            onClick={() => setIsMenuOpen(false)}
+          ></label>
+          <div className="relative w-full min-h-full bg-white flex">
+            <div className="container mx-auto px-4 py-3">
+              <div className="h-full flex flex-col">
+                <div className="flex justify-end">
+                  <button
+                    className=" text-moriartii-primary"
+                    onClick={() => setIsMenuOpen(false)}
+                    aria-label="Fermer le menu"
+                  >
+                    <X size={50} />
+                  </button>
+                </div>
+
+                <div className="flex-grow flex items-center justify-center">
+                  <ul className="menu p-8 w-full flex flex-col gap-6 items-center justify-center">
+                    {navLinks.map((link) => (
+                      <li key={link.name}>
+                        <CustomLink
+                          href={link.href}
+                          className="relative text-4xl font-medium text-moriartii-secondary hover:text-moriartii-primary transition-colors duration-200 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 hover:after:w-full after:h-[2px] after:bg-moriartii-primary after:transition-all after:duration-300 active:text-moriartii-primary visited:text-moriartii-accent text-center"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {link.name}
+                        </CustomLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
   );

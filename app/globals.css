@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 :root {
+  font-size: 18px; /* Augmente la taille générale des caractères */
   --background: 0 0% 100%;
   --foreground: 222 47% 11%;
   --card: 0 0% 100%;
@@ -22,7 +23,10 @@
   --border: 214.3 31.8% 91.4%;
   --input: 214.3 31.8% 91.4%;
   --ring: 222 47% 11%;
-  --radius: 0.5rem;
+  --radius: 0rem;
+  --radius-selector: 0rem;
+  --radius-field: 0rem;
+  --radius-box: 0rem;
 }
 
 .dark {
@@ -55,7 +59,12 @@
     @apply bg-background text-foreground;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-serif;
   }
 
@@ -84,7 +93,7 @@
   .container-custom {
     @apply container mx-auto px-4 md:px-6 py-8 md:py-12;
   }
-  
+
   .section {
     @apply py-12 md:py-16 lg:py-20;
   }
@@ -96,7 +105,7 @@
   .btn-secondary {
     @apply bg-moriartii-secondary text-white hover:bg-moriartii-primary transition-colors duration-300 font-medium;
   }
-  
+
   .card-hover {
     @apply transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg;
   }

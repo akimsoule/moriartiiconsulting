@@ -1,9 +1,24 @@
 export const dynamic = "force-dynamic";
 
 import Link from "next/link";
-import { blogPosts, getPaginatedBlogPosts, getTotalBlogPages } from "@/lib/data";
+import { getPaginatedBlogPosts, getTotalBlogPages } from "@/lib/data";
 import BlogCard from "@/components/blog/BlogCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Metadata } from "next";
+import CustomLink from "@/components/CustomLink";
+
+export const metadata: Metadata = {
+  title: "Articles & Actualités | Moriartii Consulting",
+  description:
+    "Découvrez les derniers articles, analyses et conseils de Moriartii Consulting sur la fiscalité internationale, le droit des affaires et la stratégie d'entreprise.",
+  openGraph: {
+    title: "Articles & Actualités | Moriartii Consulting",
+    description:
+      "Découvrez les derniers articles, analyses et conseils de Moriartii Consulting sur la fiscalité internationale, le droit des affaires et la stratégie d'entreprise.",
+    siteName: "Moriartii Consulting",
+    type: "website",
+  },
+};
 
 interface BlogPageProps {
   searchParams: { page?: string };
@@ -24,7 +39,9 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
               Articles et Actualités
             </h1>
             <p className="text-moriartii-secondary text-lg">
-              Découvrez nos derniers articles, analyses et conseils sur la fiscalité internationale, le droit des affaires et les stratégies d'entreprise.
+              Découvrez nos derniers articles, analyses et conseils sur la
+              fiscalité internationale, le droit des affaires et les stratégies
+              d'entreprise.
             </p>
           </div>
         </div>
@@ -35,9 +52,9 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.length > 0 ? (
               posts.map((post, index) => (
-                <BlogCard 
-                  key={post.id} 
-                  post={post} 
+                <BlogCard
+                  key={post.id}
+                  post={post}
                   featured={index === 0 && currentPage === 1}
                 />
               ))
@@ -53,7 +70,7 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex justify-center items-center mt-12 space-x-2">
-              <Link
+              <CustomLink
                 href={`/blog?page=${Math.max(1, currentPage - 1)}`}
                 className={`p-2 rounded-md flex items-center ${
                   currentPage === 1
@@ -64,10 +81,10 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
                 tabIndex={currentPage === 1 ? -1 : undefined}
               >
                 <ChevronLeft className="h-5 w-5" />
-              </Link>
+              </CustomLink>
 
               {[...Array(totalPages)].map((_, i) => (
-                <Link
+                <CustomLink
                   key={i}
                   href={`/blog?page=${i + 1}`}
                   className={`px-4 py-2 rounded-md ${
@@ -77,10 +94,10 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
                   }`}
                 >
                   {i + 1}
-                </Link>
+                </CustomLink>
               ))}
 
-              <Link
+              <CustomLink
                 href={`/blog?page=${Math.min(totalPages, currentPage + 1)}`}
                 className={`p-2 rounded-md flex items-center ${
                   currentPage === totalPages
@@ -91,7 +108,7 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
                 tabIndex={currentPage === totalPages ? -1 : undefined}
               >
                 <ChevronRight className="h-5 w-5" />
-              </Link>
+              </CustomLink>
             </div>
           )}
         </div>

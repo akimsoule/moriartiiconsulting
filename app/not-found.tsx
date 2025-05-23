@@ -1,3 +1,4 @@
+import CustomLink from '@/components/CustomLink';
 import Link from 'next/link';
 
 export default function NotFound() {
@@ -9,7 +10,7 @@ export default function NotFound() {
         <p className="text-moriartii-secondary mb-8">
           Désolé, la page que vous recherchez n'existe pas ou a été déplacée.
         </p>
-        <Link 
+        <CustomLink 
           href="/"
           className="btn btn-primary px-6 py-3 rounded-md inline-flex items-center"
         >
@@ -17,7 +18,7 @@ export default function NotFound() {
           <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7m-7-7v14" />
           </svg>
-        </Link>
+        </CustomLink>
       </div>
     </div>
   );

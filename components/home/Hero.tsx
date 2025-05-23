@@ -1,8 +1,8 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import CustomLink from "../CustomLink";
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,7 +17,9 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div
             className={`space-y-6 transition-all duration-700 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
             }`}
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-moriartii-primary leading-tight">
@@ -27,28 +29,31 @@ export default function Hero() {
               Transformez Vos Défis en Opportunités.
             </p>
             <p className="text-moriartii-secondary text-lg">
-              Maximisez votre potentiel en transformant les obstacles en succès avec nos solutions de conseil stratégique.
+              Maximisez votre potentiel en transformant les obstacles en succès
+              avec nos solutions de conseil stratégique.
             </p>
             <div className="pt-4 flex flex-col sm:flex-row gap-4">
-              <Link
+              <CustomLink
                 href="/services"
                 className="btn btn-primary px-6 py-3 rounded-md inline-flex items-center justify-center"
               >
                 Nos services
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-              <Link
+              </CustomLink>
+              <CustomLink
                 href="/contact"
                 className="btn btn-outline border-moriartii-primary text-moriartii-primary hover:bg-moriartii-primary hover:text-white px-6 py-3 rounded-md inline-flex items-center justify-center"
               >
                 Nous contacter
-              </Link>
+              </CustomLink>
             </div>
           </div>
 
           <div
             className={`rounded-lg overflow-hidden shadow-xl transition-all duration-700 delay-300 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
             }`}
           >
             <img
