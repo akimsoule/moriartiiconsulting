@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Link from "next/link";
 import { blogPosts, getPaginatedBlogPosts, getTotalBlogPages } from "@/lib/data";
 import BlogCard from "@/components/blog/BlogCard";
