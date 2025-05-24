@@ -29,6 +29,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" data-theme="moriartii">
+      <head>
+        <link rel="icon" href="/legal.png" />
+      </head>
       <body className={`${inter.variable} ${playfair.variable} font-sans min-h-screen flex flex-col`}>
         <Navbar />
         <main className="flex-grow">
