@@ -97,10 +97,10 @@ const Navbar = () => {
                 <div className="flex-grow flex items-center justify-center">
                   <ul className="menu p-8 w-full flex flex-col gap-6 items-center justify-center">
                     {navLinks.map((link) => (
-                      <li key={link.name}>
+                      <li key={link.name} className="w-full flex items-center">
                         <CustomLink
                           href={link.href}
-                          className="relative text-4xl font-medium text-moriartii-secondary hover:text-moriartii-primary transition-colors duration-200 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 hover:after:w-full after:h-[2px] after:bg-moriartii-primary after:transition-all after:duration-300 active:text-moriartii-primary visited:text-moriartii-accent text-center"
+                          className="w-full flex justify-center relative font-medium text-moriartii-secondary hover:text-moriartii-primary transition-colors duration-200 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 hover:after:w-full after:h-[2px] after:bg-moriartii-primary after:transition-all after:duration-300 active:text-moriartii-primary visited:text-moriartii-accent text-center"
                           onClick={() => setIsMenuOpen(false)}
                         >
                           {link.name}
