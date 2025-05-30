@@ -1,4 +1,5 @@
 import CustomLink from "../CustomLink";
+import { Spade } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -142,7 +143,9 @@ const Footer = () => {
 
           <div>
             <h4 className="font-bold mb-3">Contact</h4>
-            <p className="text-sm">Email: contact@moriartiiconsulting.com</p>
+            <p className="text-sm break-words break-all">
+              Email: contact@moriartiiconsulting.com
+            </p>
             <p className="text-sm mb-4">Téléphone: +33 (0)1 XX XX XX XX</p>
             <div className="flex space-x-4">
               <a
@@ -179,7 +182,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-gray-700 text-center">
+        <div className="mt-8 pt-6 border-t border-gray-700 text-center relative">
           <p className="text-sm">
             © {currentYear} Moriartii Consulting. Tous droits réservés.
           </p>
@@ -202,6 +205,27 @@ const Footer = () => {
               Conditions d'utilisation
             </CustomLink>
           </p>
+          {/* Lien discret dashboard, visible uniquement pour le propriétaire (par exemple, via un mot-clé dans le localStorage ou un clic secret) */}
+          <a
+            href="/dashboard"
+            tabIndex={-1}
+            aria-label="dashboard"
+            style={{
+              position: "absolute",
+              right: 0,
+              bottom: 0,
+              opacity: 0.2,
+              fontSize: 0,
+              width: 24,
+              height: 24,
+              zIndex: 10,
+              pointerEvents: "auto",
+            }}
+            className="flex items-center justify-center bg-moriartii-secondary rounded-full hover:opacity-100 transition-opacity duration-300"
+          >
+            {/* Icône as de pique Lucide React */}
+            <Spade size={18} color="white" style={{ display: "block" }} />
+          </a>
         </div>
       </div>
     </footer>

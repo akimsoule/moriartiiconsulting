@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Monoton } from "next/font/google"; // Remplace Playfair_Display par Agu_Display
+import { Libre_Franklin } from "next/font/google";
 import CustomLink from "../CustomLink";
 
-const mono = Monoton({
+const libreFranklin = Libre_Franklin({
   subsets: ["latin"],
-  weight: ["400"], // Monoton only supports 400
+  weight: ["400", "700"],
 });
 
 const Navbar = () => {
@@ -23,12 +23,12 @@ const Navbar = () => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm">
+    <header className="bg-white shadow-sm">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <CustomLink href="/" className="flex items-center">
             <span
-              className={`${mono.className} font-bold text-2xl md:text-3xl text-moriartii-primary`}
+              className={`${libreFranklin.className} font-bold text-2xl md:text-3xl text-moriartii-primary`}
             >
               Moriartii Consulting
             </span>

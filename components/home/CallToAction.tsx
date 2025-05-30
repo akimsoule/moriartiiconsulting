@@ -13,13 +13,13 @@ export default function CallToAction() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <CustomLink 
             href="/contact"
-            className="btn bg-white text-moriartii-primary hover:bg-moriartii-accent hover:text-white transition-colors duration-300 px-8 py-3 rounded-md font-medium"
+            className="btn bg-white text-moriartii-primary hover:bg-moriartii-accent hover:text-white transition-colors duration-300 px-8 py-3 rounded-md font-medium border-0"
           >
             Nous contacter
           </CustomLink>
           <CustomLink 
             href="/services"
-            className="btn border-2 border-white text-white hover:bg-white hover:text-moriartii-primary transition-colors duration-300 px-8 py-3 rounded-md font-medium"
+            className="btn bg-transparent border-2 border-white text-white hover:bg-white hover:text-moriartii-primary transition-colors duration-300 px-8 py-3 rounded-md font-medium"
           >
             Explorer nos services
           </CustomLink>

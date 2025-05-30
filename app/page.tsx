@@ -163,7 +163,7 @@ export default function Home() {
                   <p className="text-moriartii-secondary text-sm">
                     Envoyez-nous un email
                   </p>
-                  <p className="text-moriartii-primary font-medium">
+                  <p className="text-moriartii-primary font-medium break-words break-all">
                     contact@moriartiiconsulting.com
                   </p>
                 </div>
