@@ -205,22 +205,14 @@ const Footer = () => {
               Conditions d'utilisation
             </CustomLink>
           </p>
+        </div>
+
+        <div className="flex justify-end h-2 opacity-20">
           {/* Lien discret dashboard, visible uniquement pour le propriétaire (par exemple, via un mot-clé dans le localStorage ou un clic secret) */}
           <a
             href="/dashboard"
             tabIndex={-1}
             aria-label="dashboard"
-            style={{
-              position: "absolute",
-              right: 0,
-              bottom: 0,
-              opacity: 0.2,
-              fontSize: 0,
-              width: 24,
-              height: 24,
-              zIndex: 10,
-              pointerEvents: "auto",
-            }}
             className="flex items-center justify-center bg-moriartii-secondary rounded-full hover:opacity-100 transition-opacity duration-300"
           >
             {/* Icône as de pique Lucide React */}
