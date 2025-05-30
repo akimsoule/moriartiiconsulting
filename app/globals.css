@@ -27,6 +27,11 @@
   --radius-selector: 0rem;
   --radius-field: 0rem;
   --radius-box: 0rem;
+  --rounded-box: 0rem;
+  --rounded-btn: 0rem;
+  --rounded-input: 0rem;
+  --rounded-card: 0rem;
+  --rounded-badge: 0rem;
 }
 
 .dark {
