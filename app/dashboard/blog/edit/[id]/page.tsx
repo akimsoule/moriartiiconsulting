@@ -79,7 +79,14 @@ export default function BlogEditPage({ params }: BlogEditPageProps) {
         </div>
         <div>
           <label className="block mb-1 font-medium">Résumé (optionnel)</label>
-          <input name="excerpt" value={excerpt} onChange={e => setExcerpt(e.target.value)} placeholder="Résumé de l'article (optionnel)" className="input input-bordered w-full" />
+          <textarea
+            name="excerpt"
+            value={excerpt}
+            onChange={e => setExcerpt(e.target.value)}
+            placeholder="Résumé de l'article (optionnel)"
+            className="textarea textarea-bordered w-full"
+            rows={3}
+          />
         </div>
         <div>
           <label className="block mb-1 font-medium">Titre SEO (optionnel)</label>
