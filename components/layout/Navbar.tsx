@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Libre_Franklin } from "next/font/google";
-import CustomLink from "../CustomLink";
+import CustomLink from "../other/CustomLink";
 
 const libreFranklin = Libre_Franklin({
   subsets: ["latin"],

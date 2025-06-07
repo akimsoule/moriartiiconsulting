@@ -1,24 +1,47 @@
-import { loginAction } from "../../../lib/actions";
-import { redirect } from "next/navigation";
-import Link from "next/link";
+"use client";
 
-export default async function LoginPage() {
-  let error = "";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import CustomLink from "@/components/other/CustomLink";
+import { fetchWithCaptchaGateway } from "@/lib/captcha/client";
 
-  async function handleSubmit(formData: FormData) {
-    'use server';
-    const res = await loginAction(formData);
-    if (res?.error) {
-      error = res.error;
-    } else {
-      redirect("/dashboard");
+export default function LoginPage() {
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+  
+    setError("");
+    setLoading(true);
+    const formData = new FormData(e.currentTarget);
+    try {
+      const data = await fetchWithCaptchaGateway("/api/auth/signin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.get("email"),
+          password: formData.get("password"),
+        }),
+      });
+      setLoading(false);
+      if (data.error) {
+        setError(data.error);
+      } else {
+        router.push("/dashboard");
+      }
+    } catch (err: any) {
+      debugger;
+      setLoading(false);
+      setError(err.message || "Erreur inconnue");
     }
   }
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-base-200">
       <div className="card w-full max-w-sm shadow-xl bg-base-100">
-        <form action={handleSubmit} className="card-body">
+        <form onSubmit={handleSubmit} className="card-body">
           <h1 className="text-3xl font-bold text-center mb-6">Connexion</h1>
           <div className="form-control mb-4">
             <label className="label">
@@ -30,6 +53,7 @@ export default async function LoginPage() {
               placeholder="Email"
               className="input input-bordered w-full"
               required
+              disabled={loading}
             />
           </div>
           <div className="form-control mb-4">
@@ -42,16 +66,32 @@ export default async function LoginPage() {
               placeholder="Mot de passe"
               className="input input-bordered w-full"
               required
+              disabled={loading}
             />
           </div>
-          {error && <div className="alert alert-error mb-4"><span>{error}</span></div>}
+          {error && (
+            <div className="alert alert-error mb-4">
+              <span>{error}</span>
+            </div>
+          )}
           <div className="form-control mt-2">
-            <button type="submit" className="btn btn-primary w-full">Se connecter</button>
+            <button
+              type="submit"
+              className="btn btn-primary w-full"
+              disabled={loading}
+            >
+              {loading ? (
+                <span className="loading loading-spinner loading-md mr-2"></span>
+              ) : null}
+              {loading ? "Connexion..." : "Se connecter"}
+            </button>
           </div>
         </form>
         <div className="text-center py-4">
           <span>Pas de compte ? </span>
-          <Link href="/auth/signup" className="link link-primary">Créer un compte</Link>
+          <CustomLink href="/auth/signup" className="link link-primary">
+            Créer un compte
+          </CustomLink>
         </div>
       </div>
     </div>

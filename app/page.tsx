@@ -3,7 +3,7 @@ import CallToAction from "@/components/home/CallToAction";
 import Hero from "@/components/home/Hero";
 import Services from "@/components/home/Services";
 import Testimonials from "@/components/home/Testimonials";
-import ContactForm from "@/components/ui/contact-form";
+import ContactForm from "@/components/contact/contact-form";
 import { CheckCircle2, FileText, Shield } from "lucide-react";
 import { Metadata } from "next";
 
@@ -137,7 +137,7 @@ export default function Home() {
                     Téléphonez-nous
                   </p>
                   <p className="text-moriartii-primary font-medium">
-                    +33 (0)1 XX XX XX XX
+                    +33 7 45 72 75 67
                   </p>
                 </div>
               </div>
@@ -164,7 +164,7 @@ export default function Home() {
                     Envoyez-nous un email
                   </p>
                   <p className="text-moriartii-primary font-medium break-words break-all">
-                    contact@moriartiiconsulting.com
+                    moriartiiconsulting@proton.me
                   </p>
                 </div>
               </div>

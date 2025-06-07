@@ -5,6 +5,8 @@ import { verifyToken } from "@/lib/auth";
 // GET: Récupérer un article de blog par ID
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   const id = params.id;
+  const token = req.cookies.get("auth-token")?.value;
+  if (!token) return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   try {
     const post = await prisma.post.findUnique({
       where: { id },
@@ -20,7 +22,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 // PUT: Modifier un article de blog (seulement l'auteur)
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
   const id = params.id;
-  const token = req.cookies.get("token")?.value;
+  const token = req.cookies.get("auth-token")?.value;
   if (!token) return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
   let userId = null;
   try {
@@ -40,8 +42,12 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       where: { id },
       data: {
         title: data.title,
-        date: data.date,
-        excerpt: data.excerpt,
+        excerpt: data.excerpt || null,
+        date: new Date(data.date),
+        content: data.content,
+        seoTitle: data.seoTitle || null,
+        seoDescription: data.seoDescription || null,
+        seoKeywords: data.seoKeywords || null,
       },
       include: { author: { select: { id: true, name: true, email: true } } },
     });

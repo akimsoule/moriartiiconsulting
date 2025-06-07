@@ -1,34 +1,46 @@
 export const dynamic = "force-dynamic";
 
-import Link from "next/link";
-import { getPaginatedBlogPosts, getTotalBlogPages } from "@/lib/data";
-import BlogCard from "@/components/blog/BlogCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import BlogCard from "@/components/blog/BlogCard";
+import CustomLink from "@/components/other/CustomLink";
+import { prisma } from "@/lib/prisma";
 import { Metadata } from "next";
-import CustomLink from "@/components/CustomLink";
-
-export const metadata: Metadata = {
-  title: "Articles & Actualités | Moriartii Consulting",
-  description:
-    "Découvrez les derniers articles, analyses et conseils de Moriartii Consulting sur la fiscalité internationale, le droit des affaires et la stratégie d'entreprise.",
-  openGraph: {
-    title: "Articles & Actualités | Moriartii Consulting",
-    description:
-      "Découvrez les derniers articles, analyses et conseils de Moriartii Consulting sur la fiscalité internationale, le droit des affaires et la stratégie d'entreprise.",
-    siteName: "Moriartii Consulting",
-    type: "website",
-  },
-};
 
 interface BlogPageProps {
   searchParams: { page?: string };
 }
 
-export default function BlogPage({ searchParams }: BlogPageProps) {
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: "Articles & Actualités | Moriartii Consulting",
+    description:
+      "Découvrez nos derniers articles, analyses et conseils sur la fiscalité internationale, le droit des affaires et les stratégies d'entreprise.",
+    openGraph: {
+      title: "Articles & Actualités | Moriartii Consulting",
+      description:
+        "Découvrez nos derniers articles, analyses et conseils sur la fiscalité internationale, le droit des affaires et les stratégies d'entreprise.",
+      type: "website",
+      siteName: "Moriartii Consulting",
+      url: "https://moriartii.com/blog",
+    },
+  };
+}
+
+export default async function BlogPage({ searchParams }: BlogPageProps) {
   const currentPage = searchParams.page ? parseInt(searchParams.page) : 1;
   const postsPerPage = 6;
-  const totalPages = getTotalBlogPages(postsPerPage);
-  const posts = getPaginatedBlogPosts(currentPage, postsPerPage);
+  const skip = (currentPage - 1) * postsPerPage;
+
+  const [posts, total] = await Promise.all([
+    prisma.post.findMany({
+      skip,
+      take: postsPerPage,
+      orderBy: { date: "desc" },
+      include: { author: { select: { name: true, email: true } } },
+    }),
+    prisma.post.count(),
+  ]);
+  const totalPages = Math.ceil(total / postsPerPage);
 
   return (
     <>
@@ -51,11 +63,13 @@ export default function BlogPage({ searchParams }: BlogPageProps) {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.length > 0 ? (
-              posts.map((post, index) => (
+              posts.map((post: any) => (
                 <BlogCard
                   key={post.id}
-                  post={post}
-                  featured={index === 0 && currentPage === 1}
+                  post={{
+                    ...post,
+                    author: post.author?.name || post.author?.email || ""
+                  }}
                 />
               ))
             ) : (

@@ -1,8 +1,8 @@
 import { services } from "@/lib/data";
-import ServiceCard from "@/components/services/ServiceCard";
+import ServiceCard from "@/app/services/ServiceCard";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Metadata } from "next";
-import CustomLink from "@/components/CustomLink";
+import CustomLink from "@/components/other/CustomLink";
 
 export const metadata: Metadata = {
   title: "Nos services d'assistances | Moriartii Consulting",

@@ -1,4 +1,4 @@
-import CustomLink from "../CustomLink";
+import CustomLink from "../other/CustomLink";
 import { Spade } from "lucide-react";
 
 const Footer = () => {
@@ -144,9 +144,9 @@ const Footer = () => {
           <div>
             <h4 className="font-bold mb-3">Contact</h4>
             <p className="text-sm break-words break-all">
-              Email: contact@moriartiiconsulting.com
+              Email: <br />moriartiiconsulting@proton.me
             </p>
-            <p className="text-sm mb-4">Téléphone: +33 (0)1 XX XX XX XX</p>
+            <p className="text-sm mb-4">Téléphone: +33 7 45 72 75 67</p>
             <div className="flex space-x-4">
               <a
                 href="#"
@@ -207,7 +207,7 @@ const Footer = () => {
           </p>
         </div>
 
-        <div className="flex justify-end h-2 opacity-20">
+        <div className="flex justify-start h-2 opacity-20">
           {/* Lien discret dashboard, visible uniquement pour le propriétaire (par exemple, via un mot-clé dans le localStorage ou un clic secret) */}
           <a
             href="/dashboard"

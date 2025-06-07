@@ -1,8 +1,8 @@
-import ContactForm from "@/components/ui/contact-form";
 import FaqAccordion from "@/components/faq/FaqAccordion";
 import { faqs } from "@/lib/data";
 import { Calendar, Mail, Phone } from "lucide-react";
 import { Metadata } from "next";
+import PublicRdvForm from "@/app/faq-rdv/PublicRdvForm";
 
 export const metadata: Metadata = {
   title: "FAQ & RDV | Moriartii Consulting",
@@ -58,14 +58,14 @@ export default function FaqPage() {
                   <div className="flex items-center">
                     <Phone className="h-5 w-5 text-moriartii-primary mr-3" />
                     <span className="text-moriartii-secondary">
-                      +33 (0)1 XX XX XX XX
+                      +33 7 45 72 75 67
                     </span>
                   </div>
 
                   <div className="flex items-center">
                     <Mail className="h-5 w-5 text-moriartii-primary mr-3" />
                     <span className="text-moriartii-secondary">
-                      contact@moriartiiconsulting.com
+                     moriartiiconsulting@proton.me
                     </span>
                   </div>
 
@@ -78,16 +78,13 @@ export default function FaqPage() {
                 </div>
               </div>
 
-              <h3 className="text-xl font-serif font-semibold text-moriartii-primary mb-4">
-                Nous Contacter
-              </h3>
-              <p className="text-moriartii-secondary mb-6">
-                Contactez-nous en utilisant le formulaire ci-dessous. Nous
-                sommes impatients de vous entendre et de vous aider avec vos
-                besoins.
-              </p>
-
-              <ContactForm />
+              {/* Formulaire de prise de rendez-vous public */}
+              <div className="mt-10">
+                <h3 className="text-xl font-serif font-semibold text-moriartii-primary mb-4">
+                  Prendre rendez-vous
+                </h3>
+                <PublicRdvForm />
+              </div>
             </div>
           </div>
         </div>

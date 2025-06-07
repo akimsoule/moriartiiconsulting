@@ -2,7 +2,7 @@ import { teamMembers } from "@/lib/data";
 import TeamMember from "@/components/team/TeamMember";
 import { ArrowRight } from "lucide-react";
 import { Metadata } from "next";
-import CustomLink from "@/components/CustomLink";
+import CustomLink from "@/components/other/CustomLink";
 
 export const metadata: Metadata = {
   title: "Équipe | Moriartii Consulting",

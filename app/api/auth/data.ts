@@ -1,0 +1,1 @@
+export const ALLOWED_USERS = ["soule_akim@yahoo.fr", "moriartiiconsulting@proton.me"];

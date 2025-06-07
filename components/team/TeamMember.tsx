@@ -1,6 +1,6 @@
 import { Linkedin } from 'lucide-react';
 import { TeamMember as TeamMemberType } from '@/lib/data';
-import CustomLink from '../CustomLink';
+import CustomLink from '../other/CustomLink';
 
 interface TeamMemberProps {
   member: TeamMemberType;

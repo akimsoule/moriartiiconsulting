@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import RecaptchaScript from "@/components/other/RecaptchaScript";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,13 +34,14 @@ export default function RootLayout({
     <html lang="fr" data-theme="moriartii">
       <head>
         <link rel="icon" href="/legal.png" />
+        <RecaptchaScript siteKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!} />
       </head>
       <body
         className={`${inter.variable} ${playfair.variable} font-sans`}
       >
         <div className="flex flex-col min-h-screen">
           <Navbar />
-          <main className="flex-grow flex flex-col">{children}</main>
+          <main className="min-h-[70vh] flex flex-col">{children}</main>
           <Footer />
         </div>
       </body>

@@ -5,6 +5,7 @@ import { User } from '@prisma/client';
 
 const JWT_SECRET = process.env.NEXTAUTH_SECRET;
 const secret = new TextEncoder().encode(JWT_SECRET);
+const ADMIN_USERS = ["soule_akim@yahoo.fr"];
 
 export async function hashPassword(password: string): Promise<string> {
   return await bcrypt.hash(password, 10);
@@ -18,9 +19,15 @@ export async function comparePasswords(
 }
 
 export async function generateToken(user: Partial<User>): Promise<string> {
+  let role = 'user';
+  if (user.email && ADMIN_USERS.includes(user.email)) {
+    role = 'admin';
+  }
+
   const payload = {
     id: user.id,
     email: user.email,
+    role: role,
   };
 
   return await new SignJWT(payload)

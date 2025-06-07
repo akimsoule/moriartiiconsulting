@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { fetchWithCaptchaGateway } from "@/lib/captcha/client";
 
 const formSchema = z.object({
   name: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
@@ -32,20 +33,20 @@ export default function ContactForm() {
     setErrorMessage("");
 
     try {
-      // Simulate form submission
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      
-      console.log("Form submitted:", data);
+      await fetchWithCaptchaGateway("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
       setIsSuccess(true);
       reset();
-      
-      // Reset success message after 5 seconds
+
       setTimeout(() => {
         setIsSuccess(false);
       }, 5000);
-    } catch (error) {
-      console.error("Submission error:", error);
-      setErrorMessage("Une erreur est survenue. Veuillez réessayer.");
+    } catch (error: any) {
+      setErrorMessage(error.message || "Une erreur est survenue. Veuillez réessayer.");
     } finally {
       setIsSubmitting(false);
     }
@@ -105,18 +106,6 @@ export default function ContactForm() {
         {errors.message && (
           <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
         )}
-      </div>
-
-      <div className="text-xs text-gray-500">
-        Ce site est protégé par reCAPTCHA et Google{" "}
-        <a href="https://policies.google.com/privacy" className="underline">
-          politique de confidentialité
-        </a>{" "}
-        et{" "}
-        <a href="https://policies.google.com/terms" className="underline">
-          Conditions d'utilisation
-        </a>{" "}
-        appliquer.
       </div>
 
       {errorMessage && (

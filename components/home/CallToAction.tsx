@@ -1,4 +1,4 @@
-import CustomLink from '../CustomLink';
+import CustomLink from '../other/CustomLink';
 
 export default function CallToAction() {
   return (

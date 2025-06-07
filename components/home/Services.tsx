@@ -1,6 +1,6 @@
 import { services } from '@/lib/data';
 import { Building, Globe, GraduationCap, Receipt, Scale } from 'lucide-react';
-import CustomLink from '../CustomLink';
+import CustomLink from '../other/CustomLink';
 
 const getIcon = (iconName: string) => {
   switch (iconName) {

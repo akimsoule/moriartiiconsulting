@@ -2,7 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
-import CustomLink from "../CustomLink";
+import CustomLink from "../other/CustomLink";
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);

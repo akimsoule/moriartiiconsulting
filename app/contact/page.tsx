@@ -1,4 +1,4 @@
-import ContactForm from "@/components/ui/contact-form";
+import ContactForm from "@/components/contact/contact-form";
 import { Mail, Phone } from "lucide-react";
 import { Metadata } from "next";
 
@@ -54,7 +54,7 @@ export default function ContactPage() {
                       Téléphone
                     </p>
                     <p className="text-moriartii-primary font-medium">
-                      +33 (0)1 XX XX XX XX
+                      +33 7 45 72 75 67
                     </p>
                   </div>
                 </div>
@@ -63,7 +63,7 @@ export default function ContactPage() {
                   <div>
                     <p className="text-moriartii-secondary text-sm">Email</p>
                     <p className="text-moriartii-primary font-medium">
-                      contact@moriartiiconsulting.com
+                      moriartiiconsulting@proton.me
                     </p>
                   </div>
                 </div>

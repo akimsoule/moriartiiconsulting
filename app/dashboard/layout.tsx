@@ -1,16 +1,15 @@
 "use client";
 
-import CustomLink from "@/components/CustomLink";
-import { Menu, X, LogOut } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import CustomLink from "@/components/other/CustomLink";
+import { fetchWithCaptchaGateway } from "@/lib/captcha/client";
+import { LogOut } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 import { useCallback } from "react";
 
 const links = [
-  { href: "/dashboard/seo", label: "Analyse SEO" },
+  { href: "/dashboard", label: "Dashboard" },
   { href: "/dashboard/blog", label: "Articles du blog" },
   { href: "/dashboard/contact", label: "Messages de contact" },
-  { href: "/dashboard/calendar", label: "Rendez-vous" },
 ];
 
 export default function DashboardLayout({
@@ -18,118 +17,77 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname =
-    typeof window !== "undefined" ? window.location.pathname : "";
+  const pathname = usePathname();
   const router = useRouter();
 
   const handleLogout = useCallback(async () => {
-    await fetch("/api/logout", { method: "POST" });
+    await fetchWithCaptchaGateway("/api/auth/logout", { method: "POST" });
     router.push("/");
   }, [router]);
 
   return (
-    <div className="drawer drawer-end container mx-auto px-4 py-3">
-      <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex-1">
-        {/* Bouton burger mobile */}
-        <div className="md:hidden flex items-start p-2">
-          <label
-            htmlFor="my-drawer-4"
-            className="drawer-button btn btn-ghost bg-white/80 p-2 cursor-pointer"
-            aria-label="Ouvrir le menu"
-          >
-            <Menu size={40} />
-          </label>
-        </div>
-        {/* Sidebar desktop visible en permanence */}
-        <div className="hidden md:flex flex-col w-64 bg-base-100 dark:bg-secondary border-r border-base-200 p-6 absolute left-0 top-0">
-          <h2 className="text-lg font-bold mb-8">Dashboard</h2>
-          <nav>
-            <ul className="menu menu-vertical space-y-2">
-              {links.map((link) => (
-                <li key={link.href} className="flex justify-center">
-                  <CustomLink
-                    href={link.href}
-                    className={`block px-2 py-1 rounded hover:bg-accent transition-colors text-center ${
-                      pathname.startsWith(link.href)
-                        ? "bg-accent font-semibold"
-                        : ""
-                    }`}
-                  >
-                    {link.label}
-                  </CustomLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <button
-            onClick={handleLogout}
-            className="mt-8 w-full btn btn-error py-2 rounded flex items-center justify-center gap-2 hover:bg-red-600 transition-colors"
-          >
-            <LogOut size={20} />
-            <span>Se déconnecter</span>
-          </button>
-        </div>
-        {/* Contenu principal */}
-        <main className="md:ml-64 min-h-[80vh] p-2 bg-base-200 dark:bg-background">
-          {children}
-        </main>
-      </div>
-      {/* Sidebar mobile (drawer) */}
-      <div className="drawer-side z-[100] md:hidden">
-        <label
-          htmlFor="my-drawer-4"
-          aria-label="close sidebar"
-          className="drawer-overlay bg-black/30"
-        ></label>
-        <ul className="menu bg-base-100 text-base-content min-h-full w-full p-4">
-          <div className="flex justify-end mb-4">
+    <section className="bg-gradient-to-b from-moriartii-light to-white xl:py-5">
+      <div className="container mx-auto drawer lg:drawer-open">
+        <input id="drawer-dash" type="checkbox" className="drawer-toggle" />
+        <div className="drawer-content flex flex-col">
+          <div className="w-full flex items-center justify-between px-4 py-2 bg-base-100 shadow-sm lg:hidden">
             <label
-              htmlFor="my-drawer-4"
-              className="text-moriartii-primary cursor-pointer"
-              aria-label="Fermer le menu"
+              htmlFor="drawer-dash"
+              className="btn btn-ghost drawer-button lg:hidden"
             >
-              <X size={24} />
-            </label>
-          </div>
-          <h2 className="text-lg font-bold mb-8">Dashboard</h2>
-          {links.map((link) => (
-            <li key={link.href} className="flex justify-center">
-              <Link
-                href={link.href}
-                className={`block px-2 py-1 rounded hover:bg-accent transition-colors text-center ${
-                  pathname.startsWith(link.href)
-                    ? "bg-accent font-semibold"
-                    : ""
-                }`}
-                onClick={() => {
-                  const drawer = document.getElementById(
-                    "my-drawer-4"
-                  ) as HTMLInputElement | null;
-                  if (drawer) drawer.checked = false;
-                }}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                {link.label}
-              </Link>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h7"
+                />
+              </svg>
+            </label>
+            <span className="font-bold text-lg">Dashboard</span>
+          </div>
+          <div className="container mx-auto px-0 lg:px-4">
+            {children}
+          </div>
+        </div>
+        <div className="drawer-side h-[100vh] lg:h-[80vh]">
+          <label
+            htmlFor="drawer-dash"
+            aria-label="close sidebar"
+            className="drawer-overlay"
+          ></label>
+          <ul className="menu bg-base-200 text-base-content w-80 p-4 flex flex-col gap-2">
+            {links.map((link) => (
+              <li key={link.href}>
+                <CustomLink
+                  href={link.href}
+                  className={`block px-2 py-2 rounded hover:bg-accent transition-colors text-base font-medium ${
+                    pathname.startsWith(link.href) ? "font-semibold" : ""
+                  }`}
+                >
+                  {link.label}
+                </CustomLink>
+              </li>
+            ))}
+            <li className="mt-auto">
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="w-full flex justify-center btn btn-error py-2 rounded items-center gap-2 hover:bg-red-600 transition-colors"
+              >
+                <LogOut size={20} />
+                <span>Se déconnecter</span>
+              </button>
             </li>
-          ))}
-          <li className="mt-8">
-            <button
-              onClick={async () => {
-                await handleLogout();
-                const drawer = document.getElementById(
-                  "my-drawer-4"
-                ) as HTMLInputElement | null;
-                if (drawer) drawer.checked = false;
-              }}
-              className="w-full btn btn-error py-2 rounded flex items-center justify-center gap-2 hover:bg-red-600 transition-colors"
-            >
-              <LogOut size={20} />
-              <span>Se déconnecter</span>
-            </button>
-          </li>
-        </ul>
+          </ul>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
