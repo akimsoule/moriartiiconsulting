@@ -1,7 +1,6 @@
 "use client";
 
 import CustomLink from "@/components/other/CustomLink";
-import { fetchWithCaptchaGateway } from "@/lib/captcha/client";
 import { LogOut } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback } from "react";
@@ -21,7 +20,7 @@ export default function DashboardLayout({
   const router = useRouter();
 
   const handleLogout = useCallback(async () => {
-    await fetchWithCaptchaGateway("/api/auth/logout", { method: "POST" });
+    await fetch("/api/auth/logout", { method: "POST" });
     router.push("/dashboard");
   }, [router]);
 
