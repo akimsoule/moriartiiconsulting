@@ -37,12 +37,13 @@ export default function PublicRdvForm() {
       // Validation côté client : tous les champs sont requis
       if (!form.name || !form.email || !form.date || !form.startTime || !form.endTime || !form.message) {
         setError("Veuillez remplir tous les champs.");
+        setLoading(false);
         return;
       }
       // Construction du message à envoyer
       const message = `Demande de rendez-vous :\nNom : ${form.name}\nEmail : ${form.email}\nDate : ${form.date}\nHeure de début : ${form.startTime}\nHeure de fin : ${form.endTime}\nMessage : ${form.message}`;
-      // Appel à l'API de contact (supposée à /api/contact/route.ts)
-      const res = await fetchWithCaptchaGateway("/api/contact", {
+      // Appel à l'API de contact
+      await fetchWithCaptchaGateway("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -51,12 +52,10 @@ export default function PublicRdvForm() {
           message,
         }),
       });
-      if (!res.ok) {
-        setError("Erreur lors de l'envoi du message. Veuillez réessayer.");
-        return;
-      }
       setSuccess("Votre demande a bien été envoyée. Nous vous recontacterons rapidement.");
       setForm({ name: "", email: "", date: "", startTime: "", endTime: "", message: "" });
+    } catch (err: any) {
+      setError(err.message || "Erreur lors de l'envoi du message. Veuillez réessayer.");
     } finally {
       setLoading(false);
     }

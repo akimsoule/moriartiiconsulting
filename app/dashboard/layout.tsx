@@ -22,7 +22,7 @@ export default function DashboardLayout({
 
   const handleLogout = useCallback(async () => {
     await fetchWithCaptchaGateway("/api/auth/logout", { method: "POST" });
-    router.push("/");
+    router.push("/dashboard");
   }, [router]);
 
   return (

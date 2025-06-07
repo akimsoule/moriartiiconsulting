@@ -10,7 +10,7 @@ async function main() {
       where: { OR: [{ id: post.id }, { title: post.title }] },
     });
     const user = await prisma.user.findFirst({
-      where: { email: "soule_akim@yahoo.fr" },
+      where: { email: "moriartiiconsulting@proton.me" },
     });
     if (!exists && user) {
       await prisma.post.create({

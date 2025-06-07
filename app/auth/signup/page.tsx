@@ -13,22 +13,22 @@ export default function SignupPage() {
     e.preventDefault();
     setError("");
     setLoading(true);
-    const formData = new FormData(e.currentTarget);
-    const res = await fetchWithCaptchaGateway("/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: formData.get("name"),
-        email: formData.get("email"),
-        password: formData.get("password"),
-      }),
-    });
-    const data = await res.json();
-    setLoading(false);
-    if (data.error) {
-      setError(data.error);
-    } else {
+    try {
+      const formData = new FormData(e.currentTarget);
+      await fetchWithCaptchaGateway("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          password: formData.get("password"),
+        }),
+      });
       router.push("/dashboard");
+    } catch (err: any) {
+      setError(err.message || "Erreur inconnue");
+    } finally {
+      setLoading(false);
     }
   }
 

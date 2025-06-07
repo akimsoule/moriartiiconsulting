@@ -12,12 +12,11 @@ export default function LoginPage() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-  
     setError("");
     setLoading(true);
     const formData = new FormData(e.currentTarget);
     try {
-      const data = await fetchWithCaptchaGateway("/api/auth/signin", {
+      await fetchWithCaptchaGateway("/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -26,13 +25,8 @@ export default function LoginPage() {
         }),
       });
       setLoading(false);
-      if (data.error) {
-        setError(data.error);
-      } else {
-        router.push("/dashboard");
-      }
+      router.push("/dashboard");
     } catch (err: any) {
-      debugger;
       setLoading(false);
       setError(err.message || "Erreur inconnue");
     }
