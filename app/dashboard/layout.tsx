@@ -3,7 +3,7 @@
 import CustomLink from "@/components/other/CustomLink";
 import { LogOut } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useState } from "react"; // Ajout de useState
 
 const links = [
   { href: "/dashboard", label: "Dashboard" },
@@ -18,10 +18,23 @@ export default function DashboardLayout({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [logoutError, setLogoutError] = useState<string | null>(null); // Ajout de l'état
 
   const handleLogout = useCallback(async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
-    router.push("/dashboard");
+    setLogoutError(null);
+    try {
+      const res = await fetch("/api/auth/logout", {
+        method: "POST",
+        credentials: "include", // Si tu utilises les cookies
+      });
+      if (res.ok) {
+        router.push("/dashboard");
+      } else {
+        setLogoutError("Erreur lors de la déconnexion.");
+      }
+    } catch (error) {
+      setLogoutError("Erreur réseau lors de la déconnexion.");
+    }
   }, [router]);
 
   return (
@@ -51,6 +64,12 @@ export default function DashboardLayout({
             </label>
             <span className="font-bold text-lg">Dashboard</span>
           </div>
+          {/* Affichage de l'alerte DaisyUI en cas d'erreur */}
+          {logoutError && (
+            <div className="alert alert-error mt-2 mb-4">
+              <span>{logoutError}</span>
+            </div>
+          )}
           <div className="container mx-auto px-0 lg:px-4">
             {children}
           </div>
