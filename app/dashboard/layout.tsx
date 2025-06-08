@@ -28,11 +28,12 @@ export default function DashboardLayout({
         credentials: "include", // Si tu utilises les cookies
       });
       if (res.ok) {
-        router.push("/dashboard");
+        router.push("/auth/login");
       } else {
         setLogoutError("Erreur lors de la déconnexion.");
       }
     } catch (error) {
+      console.error("Erreur lors du logout:", error); // Ajout du log
       setLogoutError("Erreur réseau lors de la déconnexion.");
     }
   }, [router]);

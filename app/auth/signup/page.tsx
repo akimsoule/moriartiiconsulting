@@ -33,8 +33,8 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-base-200">
-      <div className="card w-full max-w-sm shadow-xl bg-base-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-base-200">
+      <div className="card w-full max-w-sm shadow-xl bg-base-100 m-10">
         <form onSubmit={handleSubmit} className="card-body">
           <h1 className="text-3xl font-bold text-center mb-6">Créer un compte</h1>
           <div className="form-control mb-4">
