@@ -43,7 +43,7 @@ export default function DashboardLayout({
       <div className="container mx-auto drawer lg:drawer-open">
         <input id="drawer-dash" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col">
-          <div className="w-full flex items-center justify-between px-4 py-2 bg-base-100 shadow-sm lg:hidden">
+          <div className="w-full flex items-center justify-between px-4 py-2 bg-transparent shadow-sm lg:hidden">
             <label
               htmlFor="drawer-dash"
               className="btn btn-ghost drawer-button lg:hidden"
@@ -63,7 +63,12 @@ export default function DashboardLayout({
                 />
               </svg>
             </label>
-            <span className="font-bold text-lg">Dashboard</span>
+            <CustomLink
+              href="/dashboard"
+              className="text-xl font-bold text-moriartii-primary"
+            >
+              <span className="font-bold text-lg">Dashboard</span>
+            </CustomLink>
           </div>
           {/* Affichage de l'alerte DaisyUI en cas d'erreur */}
           {logoutError && (
@@ -71,9 +76,7 @@ export default function DashboardLayout({
               <span>{logoutError}</span>
             </div>
           )}
-          <div className="container mx-auto px-0 lg:px-4">
-            {children}
-          </div>
+          <div className="container mx-auto px-0 lg:px-4">{children}</div>
         </div>
         <div className="drawer-side h-[100vh] lg:h-[80vh]">
           <label
