@@ -27,7 +27,7 @@ export default function TeamPage() {
               Rencontrez notre équipe
             </h1>
             <p className="text-moriartii-secondary text-lg">
-              Découvrez les experts qui composent l'équipe de Moriartii
+              Découvrez les experts qui composent l&apos;équipe de Moriartii
               Consulting, dédiée à vous fournir des services de consultation
               juridique et fiscale de premier ordre.
             </p>
@@ -50,21 +50,21 @@ export default function TeamPage() {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-2xl font-serif font-bold text-moriartii-primary mb-6">
               Expert en Fiscalité Internationale et Stratégie Juridique
-              d'Entreprise
+              d&apos;Entreprise
             </h2>
 
             <p className="text-moriartii-secondary mb-6">
               Naviguer dans la complexité fiscale et juridique internationale
-              nécessite bien plus qu'une simple compréhension des lois : cela
+              nécessite bien plus qu&apos;une simple compréhension des lois : cela
               demande une vision stratégique, une capacité à anticiper les
               risques et à transformer des défis réglementaires en véritables
-              leviers de performance. C'est précisément ce que Afiz SOULE
+              leviers de performance. C&apos;est précisément ce que Afiz SOULE
               apporte à ses clients.
             </p>
 
             <p className="text-moriartii-secondary mb-6">
-              Fort d'un Mastère Spécialisé en Management Juridique des Affaires
-              (TBS Education, Toulouse) et d'un Master en Droit des Affaires et
+              Fort d&apos;un Mastère Spécialisé en Management Juridique des Affaires
+              (TBS Education, Toulouse) et d&apos;un Master en Droit des Affaires et
               Fiscalité, Afiz SOULE a su transformer ses solides connaissances
               académiques en solutions concrètes pour les entreprises
               confrontées à des environnements fiscaux et réglementaires en
@@ -78,21 +78,21 @@ export default function TeamPage() {
             </p>
 
             <p className="text-moriartii-secondary mb-6">
-              Mais c'est sur le terrain que Afiz démontre toute la valeur de son
+              Mais c&apos;est sur le terrain que Afiz démontre toute la valeur de son
               expertise. Lors de ses expériences, il a accompagné des
               entreprises dans la gestion stratégique des prix de transfert, la
-              conformité TVA en France et à l'international, et l'analyse des
+              conformité TVA en France et à l&apos;international, et l&apos;analyse des
               impacts fiscaux lors de restructurations complexes (fusions,
               acquisitions, cessions). Sa capacité à naviguer entre les
               conventions fiscales internationales (France, Luxembourg, Pologne,
               Italie, Espagne, Allemagne, Afrique) et à identifier des
-              opportunités d'optimisation fiscale fait de lui un atout clé pour
-              les entreprises opérant à l'échelle mondiale.
+              opportunités d&apos;optimisation fiscale fait de lui un atout clé pour
+              les entreprises opérant à l&apos;échelle mondiale.
             </p>
 
             <p className="text-moriartii-secondary mb-8">
               Au-delà des aspects techniques, Afiz se distingue par sa vision
-              stratégique. Il ne s'agit pas simplement de respecter les
+              stratégique. Il ne s&apos;agit pas simplement de respecter les
               obligations fiscales, mais de transformer chaque défi
               réglementaire en une opportunité de croissance. Grâce à une veille
               fiscale proactive et à une approche orientée résultats, il

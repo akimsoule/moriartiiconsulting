@@ -1,4 +1,5 @@
 import { Linkedin } from 'lucide-react';
+import Image from 'next/image';
 import { TeamMember as TeamMemberType } from '@/lib/data';
 import CustomLink from '../other/CustomLink';
 
@@ -10,10 +11,13 @@ export default function TeamMember({ member }: TeamMemberProps) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
       <div className="h-80 relative">
-        <img 
+        <Image 
           src={member.image}
           alt={member.name}
           className="w-full h-full object-cover"
+          fill
+          sizes="(max-width: 768px) 100vw, 400px"
+          priority
         />
         {member.linkedin && (
           <div className="absolute top-4 right-4">

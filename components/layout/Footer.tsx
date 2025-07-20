@@ -14,8 +14,8 @@ const Footer = () => {
             </h3>
             <p className="text-sm mb-4">
               Expertise en consultation juridique, audit fiscal, et stratégie
-              d'entreprise. Nous accompagnons les entreprises dans leurs défis
-              juridiques et fiscaux en France et à l'international.
+              d&apos;entreprise. Nous accompagnons les entreprises dans leurs défis
+              juridiques et fiscaux en France et à l&apos;international.
             </p>
           </div>
 
@@ -29,7 +29,7 @@ const Footer = () => {
                     after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:w-0 hover:after:w-full after:h-[2px] after:bg-gray-300 after:transition-all after:duration-300
                     active:text-moriartii-accent visited:text-moriartii-accent"
                 >
-                  Nos services d'assistances
+                  Nos services d&apos;assistances
                 </CustomLink>
               </li>
               <li>
@@ -42,7 +42,7 @@ const Footer = () => {
                   Informel formalité
                 </CustomLink>
               </li>
-              <li>
+              {/* <li>
                 <CustomLink
                   href="/team"
                   className="relative text-sm transition-colors duration-200 text-white hover:text-gray-300
@@ -51,7 +51,7 @@ const Footer = () => {
                 >
                   Équipe
                 </CustomLink>
-              </li>
+              </li> */}
               <li>
                 <CustomLink
                   href="/faq-rdv"
@@ -202,7 +202,7 @@ const Footer = () => {
                 after:content-[''] after:absolute after:left-0 after:-bottom-0.5 after:w-0 hover:after:w-full after:h-[2px] after:bg-gray-300 after:transition-all after:duration-300
                 active:text-moriartii-accent visited:text-moriartii-accent"
             >
-              Conditions d'utilisation
+              Conditions d&apos;utilisation
             </CustomLink>
           </p>
         </div>
