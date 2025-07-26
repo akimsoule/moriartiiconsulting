@@ -16,7 +16,6 @@ const Navbar = () => {
   const navLinks = [
     { name: "Nos services d'assistances", href: "/services" },
     { name: "Informel formalité", href: "/horizon" },
-    { name: "Équipe", href: "/team" },
     { name: "FAQ & RDV", href: "/faq-rdv" },
     { name: "Articles", href: "/blog" },
     { name: "Contact", href: "/contact" },
