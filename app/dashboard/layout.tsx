@@ -9,6 +9,7 @@ const links = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/dashboard/blog", label: "Articles du blog" },
   { href: "/dashboard/contact", label: "Messages de contact" },
+  { href: "/dashboard/contact-info", label: "Informations de contact" },
 ];
 
 export default function DashboardLayout({

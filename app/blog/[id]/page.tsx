@@ -3,6 +3,8 @@ import { prisma } from "@/lib/prisma";
 import { CalendarDays, User } from "lucide-react";
 import CustomLink from "@/components/other/CustomLink";
 import { Metadata } from "next";
+import { createMetadata, breadcrumbStructuredData } from "@/lib/seo";
+import StructuredData from "@/components/seo/StructuredData";
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const post = await prisma.post.findUnique({
@@ -13,25 +15,30 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
       seoKeywords: true,
       title: true,
       excerpt: true,
+      date: true,
+      updatedAt: true,
+      author: { select: { name: true } },
     },
   });
+  
   if (!post) {
-    return {
-      title: "Article introuvable | Moriartii Consulting",
+    return createMetadata({
+      title: "Article introuvable",
       description: "Cet article n'existe pas ou a été supprimé.",
-    };
+      noIndex: true
+    });
   }
-  return {
+
+  return createMetadata({
     title: post.seoTitle || post.title,
     description: post.seoDescription || post.excerpt || undefined,
-    keywords: post.seoKeywords || undefined,
-    openGraph: {
-      title: post.seoTitle || post.title,
-      description: post.seoDescription || post.excerpt || undefined,
-      type: "article",
-      siteName: "Moriartii Consulting",
-    },
-  };
+    keywords: post.seoKeywords ? post.seoKeywords.split(',').map(k => k.trim()) : [],
+    type: "article",
+    publishedTime: post.date.toISOString(),
+    modifiedTime: post.updatedAt.toISOString(),
+    authors: post.author.name ? [post.author.name] : undefined,
+    section: "Legal & Tax Consulting"
+  });
 }
 
 export default async function BlogPostPage({ params }: { params: { id: string } }) {
@@ -42,8 +49,41 @@ export default async function BlogPostPage({ params }: { params: { id: string } 
 
   if (!post) return notFound();
 
+  const breadcrumbData = breadcrumbStructuredData([
+    { name: "Accueil", url: "/" },
+    { name: "Blog", url: "/blog" },
+    { name: post.title, url: `/blog/${post.id}` }
+  ]);
+
+  const articleStructuredData = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "description": post.excerpt,
+    "author": {
+      "@type": "Person",
+      "name": post.author.name || "Moriartii Consulting"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Moriartii Consulting",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${process.env.NEXT_PUBLIC_SITE_URL || "https://moriartiiconsulting.com"}/legal.png`
+      }
+    },
+    "datePublished": post.date.toISOString(),
+    "dateModified": post.updatedAt.toISOString(),
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${process.env.NEXT_PUBLIC_SITE_URL || "https://moriartiiconsulting.com"}/blog/${post.id}`
+    }
+  });
+
   return (
     <>
+      <StructuredData data={breadcrumbData} />
+      <StructuredData data={articleStructuredData} />
       <section className="bg-moriartii-light py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">

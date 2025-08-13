@@ -5,31 +5,31 @@ import BlogCard from "@/components/blog/BlogCard";
 import CustomLink from "@/components/other/CustomLink";
 import { prisma } from "@/lib/prisma";
 import { Metadata } from "next";
+import { createMetadata, breadcrumbStructuredData } from "@/lib/seo";
+import StructuredData from "@/components/seo/StructuredData";
 
 interface BlogPageProps {
   searchParams: { page?: string };
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  return {
-    title: "Articles & Actualités | Moriartii Consulting",
-    description:
-      "Découvrez nos derniers articles, analyses et conseils sur la fiscalité internationale, le droit des affaires et les stratégies d'entreprise.",
-    openGraph: {
-      title: "Articles & Actualités | Moriartii Consulting",
-      description:
-        "Découvrez nos derniers articles, analyses et conseils sur la fiscalité internationale, le droit des affaires et les stratégies d'entreprise.",
-      type: "website",
-      siteName: "Moriartii Consulting",
-      url: "https://moriartii.com/blog",
-    },
-  };
+  return createMetadata({
+    title: "Blog - Articles et Actualités Juridiques et Fiscales",
+    description: "Découvrez nos analyses expertes sur la fiscalité internationale, le droit des affaires et les stratégies d'entreprise. Conseils pratiques et actualités juridiques.",
+    keywords: ["blog juridique", "actualités fiscales", "droit des affaires", "conseils experts", "fiscalité internationale"],
+    type: "website"
+  });
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
   const currentPage = searchParams.page ? parseInt(searchParams.page) : 1;
   const postsPerPage = 6;
   const skip = (currentPage - 1) * postsPerPage;
+
+  const breadcrumbData = breadcrumbStructuredData([
+    { name: "Accueil", url: "/" },
+    { name: "Blog", url: "/blog" }
+  ]);
 
   const [posts, total] = await Promise.all([
     prisma.post.findMany({
@@ -44,6 +44,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
   return (
     <>
+      <StructuredData data={breadcrumbData} />
       <section className="bg-moriartii-light py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
@@ -53,7 +54,7 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
             <p className="text-moriartii-secondary text-lg">
               Découvrez nos derniers articles, analyses et conseils sur la
               fiscalité internationale, le droit des affaires et les stratégies
-              d'entreprise.
+              d&apos;entreprise.
             </p>
           </div>
         </div>

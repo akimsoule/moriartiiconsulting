@@ -3,28 +3,55 @@ import ServiceCard from "@/app/services/ServiceCard";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Metadata } from "next";
 import CustomLink from "@/components/other/CustomLink";
+import {
+  createMetadata,
+  breadcrumbStructuredData,
+  serviceStructuredData,
+} from "@/lib/seo";
+import StructuredData from "@/components/seo/StructuredData";
+import Image from "next/image";
 
-export const metadata: Metadata = {
-  title: "Nos services d'assistances | Moriartii Consulting",
+export const metadata: Metadata = createMetadata({
+  title: "Services de Conseil Juridique et Fiscal",
   description:
-    "Découvrez l'ensemble des services de consultation juridique et fiscale proposés par Moriartii Consulting pour accompagner la croissance et la conformité de votre entreprise.",
-  openGraph: {
-    title: "Nos services d'assistances | Moriartii Consulting",
-    description:
-      "Découvrez l'ensemble des services de consultation juridique et fiscale proposés par Moriartii Consulting pour accompagner la croissance et la conformité de votre entreprise.",
-    siteName: "Moriartii Consulting",
-    type: "website",
-  },
-};
+    "Découvrez nos services de consultation juridique, audit fiscal, prix de transfert et conseils stratégiques. Expertise reconnue pour entreprises et entrepreneurs.",
+  keywords: [
+    "services juridiques",
+    "audit fiscal",
+    "conseil fiscal",
+    "prix de transfert",
+    "TVA internationale",
+    "stratégie entreprise",
+  ],
+});
 
 export default function ServicesPage() {
+  const breadcrumbData = breadcrumbStructuredData([
+    { name: "Accueil", url: "/" },
+    { name: "Services", url: "/services" },
+  ]);
+
+  const servicesStructuredData = services.map((service) =>
+    serviceStructuredData({
+      name: service.title,
+      description: service.description,
+      provider: "Moriartii Consulting",
+      serviceType: "Professional Service",
+    })
+  );
+
   return (
     <>
+      <StructuredData data={breadcrumbData} />
+      {servicesStructuredData.map((data, index) => (
+        <StructuredData key={index} data={data} />
+      ))}
+
       <section className="bg-moriartii-light py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-3xl md:text-4xl font-serif font-bold text-moriartii-primary mb-4">
-              Nos Services d'Assistances
+              Nos Services d&apos;Assistances
             </h1>
             <p className="text-moriartii-secondary text-lg">
               Chez Moriartii Consulting, nous offrons une gamme complète de
@@ -66,7 +93,7 @@ export default function ServicesPage() {
                       Expertise spécialisée
                     </h3>
                     <p className="text-white/80">
-                      Notre équipe est composée d'experts dans différents
+                      Notre équipe est composée d&apos;experts dans différents
                       domaines du droit et de la fiscalité, offrant ainsi une
                       expertise pointue et spécialisée.
                     </p>
@@ -96,20 +123,20 @@ export default function ServicesPage() {
                     <p className="text-white/80">
                       Nous anticipons les défis et les opportunités, permettant
                       à nos clients de prendre des décisions éclairées et
-                      d'éviter les risques potentiels.
+                      d&apos;éviter les risques potentiels.
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-
-            <div className="rounded-lg overflow-hidden shadow-xl">
-              <img
-                src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt="Notre équipe en consultation"
-                className="w-full h-auto object-cover"
-              />
-            </div>
+            <Image
+              src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              alt="Notre équipe en consultation"
+              width={1260}
+              height={750}
+              className="w-full h-auto object-cover"
+              priority
+            />
           </div>
         </div>
       </section>
@@ -121,7 +148,7 @@ export default function ServicesPage() {
               Prêt à transformer vos défis en opportunités ?
             </h2>
             <p className="text-moriartii-secondary mb-8">
-              Contactez-nous dès aujourd'hui pour discuter de vos besoins
+              Contactez-nous dès aujourd&apos;hui pour discuter de vos besoins
               spécifiques et découvrir comment Moriartii Consulting peut vous
               aider à atteindre vos objectifs.
             </p>

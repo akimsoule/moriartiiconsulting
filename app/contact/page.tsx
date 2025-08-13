@@ -1,23 +1,27 @@
 import ContactForm from "@/components/contact/contact-form";
+import { getContactInfo } from "@/lib/contact";
 import { Mail, Phone } from "lucide-react";
 import { Metadata } from "next";
+import { createMetadata, breadcrumbStructuredData } from "@/lib/seo";
+import StructuredData from "@/components/seo/StructuredData";
 
-export const metadata: Metadata = {
-  title: "Contact | Moriartii Consulting",
-  description:
-    "Contactez Moriartii Consulting pour toute question ou demande d'accompagnement en fiscalité internationale, droit des affaires et stratégie d'entreprise.",
-  openGraph: {
-    title: "Contact | Moriartii Consulting",
-    description:
-      "Contactez Moriartii Consulting pour toute question ou demande d'accompagnement en fiscalité internationale, droit des affaires et stratégie d'entreprise.",
-    siteName: "Moriartii Consulting",
-    type: "website",
-  },
-};
+export const metadata: Metadata = createMetadata({
+  title: "Contact - Demande de Conseil Juridique et Fiscal",
+  description: "Contactez Moriartii Consulting pour vos besoins en droit des affaires, fiscalité internationale et stratégie d'entreprise. Consultation personnalisée.",
+  keywords: ["contact conseil juridique", "consultation fiscale", "demande rendez-vous", "expert fiscal Paris"]
+});
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const contactInfo = await getContactInfo();
+  
+  const breadcrumbData = breadcrumbStructuredData([
+    { name: "Accueil", url: "/" },
+    { name: "Contact", url: "/contact" }
+  ]);
+
   return (
     <>
+      <StructuredData data={breadcrumbData} />
       <section className="bg-moriartii-light py-12 md:py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
@@ -54,7 +58,7 @@ export default function ContactPage() {
                       Téléphone
                     </p>
                     <p className="text-moriartii-primary font-medium">
-                      +33 7 45 72 75 67
+                      {contactInfo.phone}
                     </p>
                   </div>
                 </div>
@@ -63,7 +67,7 @@ export default function ContactPage() {
                   <div>
                     <p className="text-moriartii-secondary text-sm">Email</p>
                     <p className="text-moriartii-primary font-medium">
-                      moriartiiconsulting@proton.me
+                      {contactInfo.email}
                     </p>
                   </div>
                 </div>

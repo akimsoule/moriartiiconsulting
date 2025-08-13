@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { fetchWithCaptchaGateway } from "@/lib/captcha/client";
+import { analytics } from "@/lib/analytics";
 
 const formSchema = z.object({
   name: z.string().min(2, "Le nom doit contenir au moins 2 caractères"),
@@ -38,6 +39,10 @@ export default function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
+
+      // Suivi Analytics : Conversion contact
+      analytics.trackContactForm('contact');
+      analytics.trackConversion('consultation_requested');
 
       setIsSuccess(true);
       reset();

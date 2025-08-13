@@ -4,25 +4,28 @@ import Hero from "@/components/home/Hero";
 import Services from "@/components/home/Services";
 import Testimonials from "@/components/home/Testimonials";
 import ContactForm from "@/components/contact/contact-form";
+import { getContactInfo } from "@/lib/contact";
 import { CheckCircle2, FileText, Shield } from "lucide-react";
 import { Metadata } from "next";
+import { createMetadata, breadcrumbStructuredData } from "@/lib/seo";
+import StructuredData from "@/components/seo/StructuredData";
 
-export const metadata: Metadata = {
-  title: "Accueil | Moriartii Consulting",
-  description:
-    "Moriartii Consulting accompagne les entreprises et entrepreneurs en fiscalité internationale, droit des affaires et stratégie. Découvrez nos services, notre équipe et nos conseils pour une croissance durable.",
-  openGraph: {
-    title: "Accueil | Moriartii Consulting",
-    description:
-      "Moriartii Consulting accompagne les entreprises et entrepreneurs en fiscalité internationale, droit des affaires et stratégie. Découvrez nos services, notre équipe et nos conseils pour une croissance durable.",
-    siteName: "Moriartii Consulting",
-    type: "website",
-  },
-};
+export const metadata: Metadata = createMetadata({
+  title: "Accueil - Expert en Droit des Affaires et Fiscalité Internationale",
+  description: "Moriartii Consulting accompagne les entreprises et entrepreneurs en fiscalité internationale, droit des affaires et stratégie. Expertise juridique reconnue, conseil personnalisé pour votre croissance.",
+  keywords: ["cabinet conseil", "droit affaires", "fiscalité internationale", "expertise juridique", "conseil entreprise", "Paris"]
+});
 
-export default function Home() {
+export default async function Home() {
+  const contactInfo = await getContactInfo();
+  
+  const breadcrumbData = breadcrumbStructuredData([
+    { name: "Accueil", url: "/" }
+  ]);
+
   return (
     <>
+      <StructuredData data={breadcrumbData} />
       <Hero />
 
       <section className="bg-white py-12">
@@ -35,7 +38,7 @@ export default function Home() {
               </h3>
               <p className="text-moriartii-secondary">
                 Nous aidons à la préparation et à la soumission des déclarations
-                fiscales pour s'assurer qu'elles sont conformes aux lois
+                fiscales pour s&apos;assurer qu&apos;elles sont conformes aux lois
                 fiscales en vigueur
               </p>
             </div>
@@ -137,7 +140,7 @@ export default function Home() {
                     Téléphonez-nous
                   </p>
                   <p className="text-moriartii-primary font-medium">
-                    +33 7 45 72 75 67
+                    {contactInfo.phone}
                   </p>
                 </div>
               </div>
@@ -164,7 +167,7 @@ export default function Home() {
                     Envoyez-nous un email
                   </p>
                   <p className="text-moriartii-primary font-medium break-words break-all">
-                    moriartiiconsulting@proton.me
+                    {contactInfo.email}
                   </p>
                 </div>
               </div>
