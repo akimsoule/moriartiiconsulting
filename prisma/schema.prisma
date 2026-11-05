@@ -99,5 +99,49 @@ model ContactInfo {
   @@map("contact_info")
 }
 
+// --- Connecteur MCP (OAuth 2.1) : tables additives, aucun secret en clair ---
+
+model McpClient {
+  id               String   @id @default(uuid())
+  clientId         String   @unique
+  clientSecretHash String?
+  name             String?
+  redirectUris     String[]
+  createdAt        DateTime @default(now())
+}
+
+model McpAuthCode {
+  id            String    @id @default(uuid())
+  codeHash      String    @unique
+  clientId      String
+  redirectUri   String
+  codeChallenge String
+  scopes        String
+  expiresAt     DateTime
+  usedAt        DateTime?
+  createdAt     DateTime  @default(now())
+}
+
+model McpToken {
+  id         String    @id @default(uuid())
+  tokenHash  String    @unique
+  type       String // 'access' | 'refresh' | 'pat'
+  clientId   String?
+  scopes     String
+  expiresAt  DateTime?
+  revokedAt  DateTime?
+  createdAt  DateTime  @default(now())
+  lastUsedAt DateTime?
+}
+
+model McpAuditLog {
+  id         String   @id @default(uuid())
+  tokenId    String
+  tool       String
+  targetType String?
+  targetId   String?
+  createdAt  DateTime @default(now())
+}
+
 
 
